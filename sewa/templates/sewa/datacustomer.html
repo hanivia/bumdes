@@ -1,0 +1,46 @@
+{% extends 'index.html' %}
+{% load static %}
+{% block content %}
+
+<main>
+    <div class="container-fluid">   
+        <div class="card mb-4">
+            <div class="card-header">
+                <i class=" #"></i>
+                <b>DATA CUSTOMER</b>
+            </div>
+            <div class="card-body">
+                <div class="table-responsive">
+                    <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                        <thead>
+                            <tr>
+                                <th>NO</th>
+                                <th>NIK</th>
+                                <th>NAMA</th>
+                                <th>ALAMAT</th>
+                                <th>TELEPON</th>
+                                <th>EMAIL</th>
+                                <!-- <th>Delete</th> -->
+                            </tr>
+                        </thead> 
+                        <tbody>
+                            {% for penyewa in list_penyewa %}
+                            <tr>
+                                <td>{{ forloop.counter }}</td>
+                                <td>{{ penyewa.nik }}</td>
+                                <td>{{ penyewa.name }}</td>
+                                <td>{{ penyewa.alamat }}</td>
+                                <td>{{ penyewa.telepon }}</td>
+                                <td>{{ penyewa.email }}</td>
+                                <!-- <td><a href="#" class="btn btn-danger"><i class="fas fa-trash-alt"></i></a></td> -->
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</main>
+            
+{% endblock content %} -->

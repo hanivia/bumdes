@@ -1,0 +1,57 @@
+{% extends "sewa/main.html" %}
+{% load static%}
+{% load crispy_forms_tags%}
+{% block content %}
+<div class="container-fluid">
+    <div class="row justify-content-md-center">
+        <div class="col-md-5">
+            <br>
+            <div class="card card-body">
+                <h3 align="center">Halaman Register</h3>
+                <form action="" method="POST">
+                    <table>
+                        {% if messages %}
+                        {% for pesan in messages %}
+                        <div class="alert alert-{{ pesan.tags }}" align="center">
+                            <b>{{ pesan }}</b>
+                        </div>
+                        {% endfor %}
+                        {% endif %}
+
+                        <form action="{% url 'register' %}" method="POST">
+                            {% csrf_token %}
+
+                            {{form|crispy}}
+
+                            <div class="form-group mt-3">
+                                <label>Username: </label>
+                                <input type="text" class="form-control" name="username"
+                                    id="date-mask" placeholder="Username">
+                            </div>
+
+                            <div class="form-group mt-3">
+                                <label>Password: </label>
+                                <input type="password" class="form-control" name="password"
+                                    id="date-mask" placeholder="Password">
+                            </div>
+
+                            <div class="form-group mt-3">
+                                <label>Ulangi Password: </label>
+                                <input type="password" class="form-control" name="password2"
+                                    id="date-mask" placeholder="Password">
+                                <br>
+                                <input type="submit" class="btn btn-primary" value="Daftar"/>
+                                <br>
+
+                            <div class="border-top pt-3">
+                                <small class="text-muted">Jika Sudah Punya Akun, Silahkan <a class="ml2" href="{% url 'login' %}">Login</a></small>
+                            </div>
+                        </form>
+                    </table>                          
+                </form>            
+            </div>
+            <br>
+        </div>
+    </div>
+</div>
+{% endblock content%}

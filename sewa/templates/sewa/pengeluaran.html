@@ -1,0 +1,59 @@
+{% extends 'index.html' %}
+{% load humanize %}
+{% block content %}
+
+<main>
+    <div class="container-fluid">  
+        {% if penyewa.count %}
+        {% endif %} 
+        <div class="card mb-4">
+            <div class="card-header">
+                <i class=" #"></i>
+                <b>LAPORAN PENYEWA</b>
+                <div style="float: right;">
+                    <a href="{% url 'export-excel' %}" class="btn btn-success ">Export</a>
+                    <a href="{% url 'form_pengeluaran' %}" class="btn btn-primary"><i class="fas fa-pencil-alt"></i>Tambah Pengeluaran</a>
+                </div>
+                         
+            </div>          
+            <div class="card-body">
+                <div class="table-responsive">
+                    <table class="table table-bordered" >
+                        <thead>
+                            <tr>
+                                <th style="width: 5px">NO</th>
+                                <th>TANGGAL PENGELUARAN</th>
+                                <th>KETERANGAN PENGELUARAN</th>
+                                <th>TOTAL BIAYA</th>
+                                <th>AKSI</th>
+                            </tr>
+                        </thead>                       
+                        <tbody>
+                            <tr>
+                                <td colspan="4"><b>JUMLAH PEMASUKAN</b></td>
+                                <td><b>Rp.{{total|intcomma}}</b></td>
+                            </tr>
+                            {% for pengeluaran in list_pengeluaran %}
+                            <tr>
+                                <td>{{ forloop.counter }}</td>
+                                <td> {{ pengeluaran.tanggal_pengeluaran|date:" d N Y" }}</td>
+                                <td> {{ pengeluaran.keterangan }}</td>
+                                <td>Rp. {{ pengeluaran.biaya|intcomma }}</td>
+                                <td><a href="{% url 'update_pengeluaran' pengeluaran.id %}" class="btn btn-success" disabled><i class="fas fa-pencil-alt"></i></a>
+                                    <a href="{% url 'delete_pengeluaran' pengeluaran.id %}" class="btn btn-danger"><i class="fas fa-trash-alt"></i></a></td>
+                                
+                            </tr> 
+                            {% endfor %}
+                            <tr>
+                                <td colspan="4"><b>JUMLAH SALDO</b></td>
+                                <td><b>Rp. {{saldo|intcomma}}</b></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</main>
+
+{% endblock content %}

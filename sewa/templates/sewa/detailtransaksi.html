@@ -1,0 +1,72 @@
+{% extends 'index.html' %}
+{% load humanize %}
+{% block content %}
+
+<main>
+    <div class="container-fluid">   
+        <div class="card mb-4">
+            <div class="card-header">
+                <i class=" #"></i>
+                <b>DATA PENYEWA</b>
+            </div>
+            <div class="card-body">
+                <div class="table-responsive">
+                    <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                        <thead>
+                            <tr>
+                                <th>NO</th>
+                                <th>NIK</th>
+                                <th>NAMA</th>
+                                <th>BARANG</th>
+                                <th>HARGA</th>
+                                <th>JUMLAH</th>
+                                <th>TOTAL</th>
+                                <th>STATUS</th>
+                                <th>KETERANGAN</th>
+                                <th>TANGGAL SEWA</th>
+                                <th>TANGGAL KEMBALI</th>
+                                <th>PENGEMBALIAN</th>
+                                <th>BAYAR</th>
+                                <th>KEMBALI</th>
+                                <th>DELETE</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for detailtransaksi in list_detailtransaksi %}
+                            <tr>
+                                <td>{{ forloop.counter }}</td>
+                                <td>{{detailtransaksi.penyewa.nik }}</td>
+                                <td>{{ detailtransaksi.penyewa.name }}</td>
+                                <td> {{ detailtransaksi.barang }}</td>
+                                <td>Rp. {{ detailtransaksi.barang.harga|intcomma }}</td>
+                                <td>{{ detailtransaksi.jml_pinjam }}</td>
+                                <td>Rp. {{ detailtransaksi.hargatotal|intcomma }}</td>
+                                <td>{{ detailtransaksi.status }}</td>
+                                <td>{{ detailtransaksi.keterangan }}</td>
+                                <td>{{ detailtransaksi.date_created|date:" d N Y" }}</td>
+                                <td>{{ detailtransaksi.tanggal_kembali|date:" d N Y"}}</td>
+                                <td>{{ detailtransaksi.pengembalian}}</td>
+
+                                {% if detailtransaksi.keterangan == 'Bayar' %}
+                                <td><a href="#" class="btn btn-warning disabled" ><i class="fas fa-pencil-alt"></i></a></td>
+                                {% else %}
+                                <td><a href="{% url 'update_detailtransaksi' detailtransaksi.id %}" class="btn btn-warning"><i class="fas fa-pencil-alt"></i></a></td>
+                                {% endif %}
+
+                                {% if detailtransaksi.pengembalian == 'Kembali' %}
+                                <td><a href="#" class="btn btn-success disabled"><i class="fas fa-pencil-alt"></i></a></td>
+                                {% else %}
+                                <td><a href="{% url 'update_kembalidetailtransaksi' detailtransaksi.id %}" class="btn btn-success"><i class="fas fa-pencil-alt"></i></a></td>
+                                {% endif %}
+                                <td><a href="{% url 'delete_detailtransaksi' detailtransaksi.id %}" class="btn btn-danger"><i class="fas fa-trash-alt"></i></a></td>   
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</main>         
+
+{% endblock content %}

@@ -1,0 +1,41 @@
+<div>
+    
+    <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+        <thead>
+            <tr>
+                <th>NO</th>
+                <th>TANGGAL PENGELUARAN</th>
+                <th>KETERANGAN PENGELUARAN</th>
+                <th>TOTAL BIAYA</th>
+                
+                <!-- <th>DELETE</th> -->
+            </tr>
+        </thead>                       
+        <tbody>
+            {% for instance in queryset %}
+            <tr>
+                <td>{{ instance.id }}</td>
+                <td>{{ instance.tanggal_pengeluaran|date:"l, d N Y" }}
+                    {{ instance.tanggal_pengeluaran|time:"H:i:s" }}
+                </td>
+                <!-- <td> {{ pengeluaran.tanggal_pengeluaran }}</td> -->
+                <td> {{ instance.keterangan }}</td>
+                <td> {{ instance.biaya }}</td>
+                <!-- <td><a href="#" class="btn btn-success"><i class="fas fa-pencil-alt"></i></a>
+                    <a href="#" class="btn btn-danger"><i class="fas fa-trash-alt"></i></a></td> -->
+                
+            </tr> 
+            {% endfor %}
+            
+        </tbody>
+        
+    </table>
+    
+    
+</div>
+<script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.0.0-alpha1/js/bootstrap.bundle.min.js">window.jQuery || document.write</script>
+
+<script>
+   
+</script>

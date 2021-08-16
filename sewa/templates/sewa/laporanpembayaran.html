@@ -1,0 +1,67 @@
+{% extends 'index.html' %}
+{% load humanize %}
+{% block content %}
+<main>
+    <div class="container-fluid">   
+        {% if penyewa.count %}
+        {% endif %} 
+        <div class="card mb-4">
+            <div class="card-header">
+                <i class=" #"></i>
+                <b>LAPORAN PEMBAYARAN</b>
+                <td style="text-align: right">
+                    <a href="{% url 'export-pembayaran' %}" class="btn btn-success" style="float: right;">Export</a>
+                </td>
+            </div>
+            <div class="card-body">
+                <div class="table-responsive">
+                    <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                        <thead>
+                            <tr>
+                                <th style="width: 5px">NO</th>
+                                <th>TANGGAL</th>
+                                <th>NIK</th>
+                                <th>NAMA</th>
+                                <th>PRODUCT</th>
+                                <th>BAYAR</th>
+                            </tr>
+                        </thead>                      
+                        <tbody>
+                            {% for detailtransaksi in list_detailtransaksi %}
+                            <tr>
+                                <td>{{ forloop.counter }}</td>
+                                <td> {{ detailtransaksi.date_created|date:" d N Y" }}</td>
+                                <td>{{ detailtransaksi.penyewa.nik }}</td>
+                                <td>{{detailtransaksi.penyewa.name }}</td>
+                                <td> {{ detailtransaksi.barang }}</td>
+                                <!-- <td>Rp. {{ detailtransaksi.barang.harga|intcomma }}</td> -->
+                                <td>Rp. {{ detailtransaksi.hargatotal|intcomma }}</td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                        <!-- <tr>
+                            <td colspan="4">TOTAL</td>
+                            <td id="totalbarang_harga"></td>
+                        </tr> -->
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</main>
+
+<!-- <script>
+    $(document).ready(function() 
+    {
+        var detailtransaksi;
+        var totalbarang_harga = 0;
+        $('td:nth-child(5)').each(function()
+        {
+            detailtransaksi=$(this).html();
+            totalbarang_harga +=parseInt(detailtransaksi);
+            $('#totalbarang_harga').text(totalbarang_harga );
+        });
+    });
+</script> -->
+
+{% endblock content %} -->

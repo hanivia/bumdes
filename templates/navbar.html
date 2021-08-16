@@ -1,0 +1,42 @@
+<div id="layoutSidenav">
+    <div id="layoutSidenav_nav">
+        <nav class="sb-sidenav accordion sb-sidenav-dark" id="sidenavAccordion">
+            <div class="sb-sidenav-menu">
+                <div class="nav">
+                    <div class="sb-sidenav-menu-heading">Core</div>
+                    <!-- link icon = https://technext.github.io/startbootstrap-sb-admin-2/pages/icons.html -->
+                    <a class="nav-link" href="{% url 'beranda' %}">
+                        <div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt"></i></div>
+                        Dashboard
+                    </a>
+                    <a class="nav-link" href="{% url 'datacustomer' %}">
+                        <div class="sb-nav-link-icon"><i class="fas fa-users"></i></div>
+                        Data Customer
+                    </a>
+                    <a class="nav-link" href="{% url 'detailtransaksi' %}">
+                        <div class="sb-nav-link-icon"><i class="fas fa-address-card"></i></div>
+                        Daftar Penyewa
+                    </a>                  
+                    {% if user.is_authenticated %}
+                    <a class="nav-link {% if menu == 'settings' %} active {% endif %}" href="{% url 'formproduct' %}">
+                        <div class="sb-nav-link-icon"><i class="fas fa-th"></i></div>
+                        Data Aset
+                    {% endif %}
+                    </a>
+                    <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapsePages" aria-expanded="false" aria-controls="collapsePages">
+                        <div class="sb-nav-link-icon"><i class="fas fa-book-open"></i></div>
+                        Laporan
+                        <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
+                    </a>
+                    <div class="collapse" id="collapsePages" aria-labelledby="headingTwo" data-parent="#sidenavAccordion">
+                        <nav class="sb-sidenav-menu-nested nav accordion" id="sidenavAccordionPages">
+                            <a class="nav-link" href="{% url 'laporandatapenyewa' %}">Data Penyewa</i></a>
+                            <a class="nav-link" href="{% url 'laporanpembayaran' %}">Pembayaran</a>
+                            <a class="nav-link" href="{% url 'pengeluaran' %}">Pengeluaran</a>
+                        </nav>
+                    </div>
+                </div>
+            </div>
+        </nav>
+    </div>
+   

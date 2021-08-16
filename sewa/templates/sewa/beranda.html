@@ -1,0 +1,50 @@
+{% extends "index.html" %}
+{% load static %}
+{% block content %}
+
+<br>
+<main>
+<div class="container-fluid">
+   <div class="row">
+        <h1 class="mt-4"></h1>
+        <div class="col-xl-4 col-md-6">
+           <div class="col-md">
+               <div class="card text-center bg-primary text-white mb-3">
+                   <div class="card-header">
+                       <h5 class="card-title">Data Aset</h5>
+                    </div>
+                    <div class="card-body">
+                        <h3 class="card-title">{{ data_total_barang }}</h3>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-xl-4 col-md-6">
+            <div class="col-md">
+                <div class="card text-center bg-warning text-white mb-3">
+                    <div class="card-header">
+                        <h5 class="card-title">Data Pelanggan</h5>
+                    </div>
+                    <div class="card-body">
+                        <h3 class="card-title">{{ data_total_penyewa }}</h3>
+                    </div>
+                </div>
+            </div>
+        </div>    
+        <div class="col-xl-4 col-md-6">
+            <div class="col-md">
+                <div class="card text-center bg-success text-white mb-3">
+                    <div class="card-header">
+                        <h5 class="card-title">Data Sewa</h5>
+                    </div>
+                    <div class="card-body">
+                        <h3 class="card-title">{{ data_total_detailtransaksi }}</h3>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</main>
+
+{% endblock content %}

@@ -1,0 +1,19 @@
+{% extends "index.html" %}
+{% block content %}
+<br>
+<div class="container-fluid">
+    <div class="row justify-content-md-center">
+        <div class="col-md-8">
+            <div class="card card-body">
+                <p> Apakah anda ingin menghapus "{{userdelete}}" ?</p>
+                <form action="{% url 'delete_user' userdelete.id %}" method="POST">
+                    {% csrf_token %}
+                    <br>
+                    <a class="btn btn-danger" href="{% url 'datauser' %}" role="button">Cancel</a>
+                    <input type="submit" class="btn btn-primary" name="Confirm" />
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock content %}

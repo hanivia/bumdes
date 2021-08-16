@@ -1,0 +1,59 @@
+{% extends "index.html" %}
+{% load humanize %}
+{% block content %}
+
+<main>
+    <div class="container-fluid">  
+        {% if penyewa.count %}
+        {% endif %} 
+        <div class="card mb-4">
+            <div class="card-header">
+                <i class=" #"></i>
+                <b>DATA ASET</b>
+                <td style="text-align: right">
+                    <a href="{% url 'form_product' %}" class="btn btn-primary" style="float: right;"><i class="fas fa-pencil-alt"></i> Tambah Aset</a>
+                </td>            
+            </div>          
+            <div class="card-body">
+                <div class="table-responsive">
+                    <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                        <thead>
+                            <tr>
+                                <th style="width: 5px">NO</th>
+                                <th>NAMA</th>
+                                <th>HARGA</th>
+                                <th>STOK</th>
+                                <th>GAMBAR</th>
+                                <th style="width:70px">AKSI</th>
+                            </tr>
+                        </thead>                       
+                        <tbody>
+                            {% for barang in list_barang %}
+                            <tr>
+                                <td>{{ forloop.counter }}</td>
+                                <td> {{ barang.barang }}</td>
+                                <td> Rp. {{ barang.harga|intcomma }}</td>
+                                <td> {{ barang.stok }}</td>
+                                <td> {% if barang.image %} <img class="thumbnail" src="{{barang.imageURL}}" alt="{{ barang.barang }}" width="100"></td>
+                                {% endif %}
+                                </td>
+                                <td><form method="POST" action="" enctype="multipart/form-data">
+                                        {% csrf_token %}
+                                        {{ formbarang.as_p }}
+                                        <a href="{% url 'update_product' barang.id %}" class="btn btn-success"><i class="fas fa-pencil-alt"></i></a>
+                                        <!-- <input class="btn btn-primary" type="submit" name="Update"> -->
+                                        <a href="{% url 'delete_product' barang.id %}" class="btn btn-danger"><i class="fas fa-trash-alt"></i></a></td>
+                                   </form>
+                                   
+                                    
+                            </tr> 
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</main>
+
+{% endblock content %}

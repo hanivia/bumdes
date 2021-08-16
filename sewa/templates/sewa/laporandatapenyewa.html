@@ -1,0 +1,45 @@
+{% extends 'index.html' %}
+{% load static %}
+{% block content %}
+<main>
+    <div class="container-fluid">  
+        {% if penyewa.count %}
+        {% endif %} 
+        <div class="card mb-4">
+            <div class="card-header">
+                <i class=" #"></i>
+                <b>LAPORAN DATA PENYEWA</b>
+                <td style="text-align: right">
+                    <a href="{% url 'export-exceldp' %}" class="btn btn-success" style="float: right;">Export</a>
+                </td>              
+            </div>          
+            <div class="card-body">
+                <div class="table-responsive">
+                    <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                        <thead>
+                            <tr>
+                                <th style="width: 5px">NO</th>
+                                <th>TANGGAL</th>
+                                <th>NIK</th>
+                                <th>NAMA</th>
+                                <th>ALAMAT</th>
+                            </tr>
+                        </thead>                       
+                        <tbody>
+                            {% for detailtransaksi in list_detailtransaksi %}
+                            <tr>
+                                <td>{{ forloop.counter }}</td>
+                                <td> {{ detailtransaksi.date_created|date:" d N Y" }}</td>
+                                <td>{{ detailtransaksi.penyewa.nik }}</td>
+                                <td>{{ detailtransaksi.penyewa.name }}</td>
+                                <td>{{detailtransaksi.penyewa.alamat }}</td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</main>
+{% endblock content %} -->

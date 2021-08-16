@@ -1,0 +1,28 @@
+<div id="layoutSidenav">
+    <div id="layoutSidenav_nav">
+        <nav class="sb-sidenav accordion sb-sidenav-dark" id="sidenavAccordion">
+            <div class="sb-sidenav-menu">
+                <div class="nav">
+                    <div class="sb-sidenav-menu-heading">Core</div>
+                    <!-- <a class="nav-link" href="{% url 'berandapenyewa' %}">
+                        <div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt"></i></div>
+                        Dashboard
+                    </a> -->
+                    <!-- {% if user.is_authenticated %} -->
+                    <a class="nav-link {% if menu == 'settings' %} active {% endif %}" href="#">
+                        <div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt"></i></div>
+                        Dashboard
+                    <!-- {% endif %} -->
+                    </a>
+                    <a class="nav-link" href="{% url 'sewa1' %}">
+                        <div class="sb-nav-link-icon"><i class="fas fa-edit"></i></div>
+                        Pemesanan
+                    </a>
+                    <a class="nav-link" href="{% url 'laporan' %}">
+                        <div class="sb-nav-link-icon"><i class="fas fa-file-code"></i></div>
+                        Laporan Transaksi
+                    </a>                   
+                </div>
+            </div>          
+        </nav>
+    </div>

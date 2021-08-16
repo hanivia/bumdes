@@ -1,0 +1,24 @@
+{% load humanize %}
+{% for r in temp  %}
+<tr>
+    <td>{{ forloop.counter }}</td>
+    <td>{{ r.barang.barang }}</td>
+    <td>Rp. {{ r.barang.harga|intcomma }}</td>
+    <td>{{ r.jumlah }}</td>
+    <td>{{r.jml_pinjam}} {{ r.barang.status }}</td>
+    <td>Rp. {{ r.hargatotal|intcomma }}</td>
+    <td align="center"><button id="hapuskeranjang" class="btn btn-danger" data-id="{{ r.id }}"
+                                               data-idbrg="{{ r.barang.id }}"
+                                               data-jml="{{ r.jumlah }}"> HAPUS </button></td>
+</tr>
+{% empty %}
+<tr>
+    <td colspan="7" align="center">Data Kosong</td>
+</tr>
+{% endfor %}
+<tr>
+    <td colspan="5" align="center"><b>Grand Total</b> 
+        <input type="hidden" value="{{hitungtemp}}" id="hitungtemp">
+    </td>
+    <td colspan="2" align="center"><b>Rp. {{sum|intcomma}}</b> <input type="hidden" value="{{sum}}" id="grantotal" name="grantotal"></td>
+</tr>

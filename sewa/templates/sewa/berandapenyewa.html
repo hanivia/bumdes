@@ -1,0 +1,181 @@
+{% extends 'sewa/main2.html' %}
+{% load static %}
+{% block content %}
+
+<div class="container-fluid">
+    <div class="row">
+      <div class="col col-sm-8">
+        <div id="databarang"></div>
+      </div>
+      <div class="col col-sm-4">
+        <form action="" id="simpantransaksi" method="post">
+            {% csrf_token %}
+            <br>
+            <div class="table-responsive">
+            <table class="table table-striped table-bordered">
+                <tr>
+                    <th>No</th>
+                    <th>Nama Barang</th>
+                    <th>Harga</th>
+                    <th>Jumlah</th>
+                    <th>Lama</th>
+                    <th>Total</th>
+                    <th>Aksi</th>
+                </tr>
+                <tbody id="datakeranjang">
+                        
+                </tbody>
+                <tr>
+                    <td colspan="7">
+                    <button type="submit" id="tmbltransaksi" class="text-capitalize btn btn-warning btn-lg btn-block"><b>SIMPAN TRANSAKSI</b></button>
+                    </td>
+                </tr>    
+            </table>
+        </div>
+        </form>
+      </div>  
+    </div>
+  </div>
+
+  <!-- Modal -->
+ <div class="modal fade" id="barangjumlah">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h4 cclass="modal-title" id="barangjumlah">Tentukan Jumlah <span id="status_barang"></span></h4>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body">
+               <div class="input-group">
+                  <input id="jml_pinjam" type="number" class="form-control" placeholder="Jumlah">
+                  <div class="input-group-append">
+                    <button id="add-new-event" type="button" class="btn btn-primary btn-flat">Jumlah <span id="jumlah_satuan"></span></button>
+                  </div>
+                  <!-- /btn-group -->
+                </div>
+                  <input id="id" type="hidden" class="form-control">
+                  <input id="status" type="hidden" class="form-control">
+            </div>
+            <div class="modal-footer justify-content-between">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Tutup</button>
+          <button type="button" class="btn btn-danger" id="simpanbarangkeranjang">Simpan keranjang</button>
+            </div>
+          </div>
+          <!-- /.modal-content -->
+        </div>
+        <!-- /.modal-dialog -->
+      </div>
+<!-- Modal -->
+
+<script>
+$(document).ready(function () {
+    $('#databarang').load("{% url 'tampilbarangjs' %}");
+    $('#datakeranjang').load("{% url 'tampilkeranjangjs' %}");
+
+$('body').on('click', '#belibarang',function (e) {
+    e.preventDefault();
+     var id = $(this).data("id");
+     var barang = $(this).data("brg");
+     var stok = $(this).data("stok");
+     var status = $(this).data("status");
+     var csr = $("input[name=csrfmiddlewaretoken]").val();
+
+     if(stok ==0){
+        alert("Mohon maaf Stok sudah habis.")
+     }else{
+         $('#barangjumlah').modal('show');
+         $('#status_barang').html(status);
+         $('#jumlah_satuan').html(status);
+
+         $("#id").val(id);
+         $("#status").val(status);
+         $("#jml_pinjam").val(1);
+
+     }
+    
+});
+
+    $("#simpanbarangkeranjang").click(function (e) { 
+          e.preventDefault();
+          var id = $("#id").val();
+          var status =$("#status").val();
+          var jml_pinjam =$("#jml_pinjam").val();
+          var csr = $("input[name=csrfmiddlewaretoken]").val();
+     mydata = {id:id, status:status, jumlah_pinjam:jml_pinjam, csrfmiddlewaretoken: csr};
+        $.ajax({
+            type: "POST",
+            url: "{% url 'simpankeranjang' %}",
+            data: mydata,
+            success: function (data) { 
+                $('#barangjumlah').modal('hide');
+                $('#databarang').load("{% url 'tampilbarangjs' %}");
+                $('#datakeranjang').load("{% url 'tampilkeranjangjs' %}"); 
+                   
+            }
+        });
+        });
+
+$('body').on('click', '#hapuskeranjang',function (e) {
+    e.preventDefault();
+     var id = $(this).data("id");
+     var idbrg = $(this).data("idbrg");
+     var jumlah = $(this).data("jml");
+     
+     var csr = $("input[name=csrfmiddlewaretoken]").val();
+     mydata = {id:id, idbrg:idbrg, jml:jumlah ,csrfmiddlewaretoken: csr};
+     mythis = this;
+
+     $.ajax({
+                type: "POST",
+                 url: "{% url 'keranjanghapus' %}",
+                data: mydata,
+                success: function (data) {
+                    if(data.status == 1){
+                        $('#databarang').load("{% url 'tampilbarangjs' %}");
+                        $(mythis).closest("tr").fadeOut();
+                        $('#datakeranjang').load("{% url 'tampilkeranjangjs' %}"); 
+                    }
+                }
+            });
+        
+});
+
+        $('body').on('submit', '#simpantransaksi',function (e) {
+            e.preventDefault();
+            var jmltmp = $('#hitungtemp').val();
+            var no_transaksi = $('#no_transaksi').val();
+            if (jmltmp == 0 ) {
+                alert("Belum ada barang di keranjang, pilih barang dulu");
+            } else {
+                if(confirm("Apakah Transaksi tersebut mau disimpan?")){
+                      $.ajax({
+                                url: "{% url 'simpantransaksi' %}",
+                                type:"post",
+                                data:new FormData(this),
+                                processData:false,
+                                contentType:false,
+                                cache:false,
+                                async:false,
+                                    beforeSend:function(){
+                                $('#tmbltransaksi').html("Loading...");
+                                
+                                },
+                                    success: function(data){ 
+                                     window.location="{% url 'berandapenyewa1' %}";
+                                        
+                                }
+                        }); 
+                 }else{
+                        return false;
+                }
+            }
+
+        });
+
+});
+
+</script>
+
+{% endblock content %}

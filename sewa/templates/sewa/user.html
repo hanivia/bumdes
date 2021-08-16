@@ -1,0 +1,105 @@
+{% extends 'sewa/main2.html' %}
+{% load humanize %}
+{% block content %}
+
+<br>
+<main>
+<div class="box-body">
+    <table class="table table-bordered">
+        <tr>
+            <h5 style="font-size: 0.5cm;" class="card-title mb-0">Data Sewa <b>{{ request.user|capfirst}}</b></h5>
+        </tr>
+        <hr>
+    </table>
+    <table class="table table-bordered">
+        <tr>
+            <th style="width: 10px">NO</th>
+            <th>TANGGAL SEWA</th>
+            <th>SEWA</th>
+            <th>HARGA</th>
+            <th>JUMLAH</th>
+            <th>TOTAL</th>
+            <th style="width: 40px">KETERANGAN</th>
+            <th>TANGGAL KEMBALI</th>
+            <th>STATUS</th>
+        </tr>
+        {% for tampil_detailtransaksi_penyewa in data_detailtransaksi_penyewa %}
+        <tr>
+            <td>{{ forloop.counter }}</td>
+            <td>{{ tampil_detailtransaksi_penyewa.date_created|date:" d N Y" }}</td>
+            <td>{{ tampil_detailtransaksi_penyewa.barang }}</td>
+            <td>Rp. {{ tampil_detailtransaksi_penyewa.barang.harga|intcomma }}</td>
+            <td>{{ tampil_detailtransaksi_penyewa.jml_pinjam }}</td>
+            <td>Rp. {{ tampil_detailtransaksi_penyewa.hargatotal|intcomma }}</td>
+            <td>{{ tampil_detailtransaksi_penyewa.keterangan }}</td>
+            <td>{{ tampil_detailtransaksi_penyewa.tanggal_kembali|date:" d N Y" }}</td>
+            <td>{{ tampil_detailtransaksi_penyewa.pengembalian }}</td>
+        <tr>
+        {% empty %}
+        <tr>
+            <td colspan="6" class="text-center">Data Order Kosong</td>
+        </tr>
+        {% endfor %}   
+       
+       
+    </table>
+  </div>
+</main>
+
+<!-- <main>
+    <div class="container-fluid">   
+        <div class="card mb-4"> -->
+            <!-- <div class="card-header">
+                <i class="fas fa-table mr-1"></i>
+                DataTable Example
+                
+            </div> -->
+            <!-- <div class="row justify-content-md-center">
+                <div class="col-md">
+                    <div class="card card-body">
+                        <table table table-sm>                           
+                            <tr>
+                                <h5 style="font-size: 0.5cm;" class="card-title mb-0">Data Sewa <b>{{ request.user|capfirst}}</b></h5>
+                            </tr>        
+                        </table>                        
+                    </div>
+                </div>
+            </div>
+            <div class="card-body">
+                <div class="table-responsive">
+                    <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                        <thead>
+                            <tr>
+                                <th>NO</th>
+                                <th>SEWA</th>
+                                <th>HARGA</th>
+                                <th>KETERANGAN</th>
+                                <th>TANGGAL SEWA</th>
+                                <th>TANGGAL KEMBALI</th>
+                                <th>STATUS</th>                                     
+                            </tr>
+                        </thead>                       
+                        <tbody>
+                            {% for tampil_detailtransaksi_penyewa in data_detailtransaksi_penyewa %}
+                            <tr>
+                                <td>{{ forloop.counter }}</td>
+                                <td>{{ tampil_detailtransaksi_penyewa.barang }}</td>
+                                <td>{{ tampil_detailtransaksi_penyewa.barang.harga }}</td>
+                                <td>{{ tampil_detailtransaksi_penyewa.keterangan }}</td>
+                                <td>{{ tampil_detailtransaksi_penyewa.date_created }}</td>
+                                <td>{{ tampil_detailtransaksi_penyewa.tanggal_kembali }}</td>
+                                <td>{{ tampil_detailtransaksi_penyewa.pengembalian }}</td>
+                            <tr>
+                            {% empty %}
+                            <tr>
+                                <td colspan="6" class="text-center">Data Order Kosong</td>
+                            </tr>
+                            {% endfor %}   
+                        </tbody>         
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</main> -->
+{% endblock content %}
